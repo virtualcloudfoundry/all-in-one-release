@@ -1,14 +1,21 @@
 #!/bin/bash
 
-set -ex
+set -x
 
-<%# /var/vcap/jobs/mysql/bin/mariadb_ctl start %>
+/var/vcap/jobs/mysql/bin/pre-start
 
-<%# "pre-start execution script: completed pre-start execution" %>
-<%# /var/vcap/sys/log/mysql/pre-start.stdout.log %>
+echo "stopping mariadb_ctl"
+/var/vcap/jobs/mysql/bin/mariadb_ctl stop
+echo "starting mariadb_ctl"
+/var/vcap/jobs/mysql/bin/mariadb_ctl start
 
+echo "stopping galera-healthcheck_ctl"
+/var/vcap/jobs/mysql/bin/galera-healthcheck_ctl stop
+echo "starting galera-healthcheck_ctl"
+/var/vcap/jobs/mysql/bin/galera-healthcheck_ctl start
 
-<%# wait for the pre-start ends, and run /var/vcap/jobs/mysql/bin/mariadb_ctl start %>
+echo "stopping switchboard_ctl"
+/var/vcap/jobs/proxy/bin/switchboard_ctl stop
+echo "starting switchboard_ctl"
+/var/vcap/jobs/proxy/bin/switchboard_ctl start &
 
-
-<%# another job is to adding/removing OUTPUT routing rules. %>

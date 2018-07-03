@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -x
+
+while true; do
+    sleep 10
+    echo "Hello I'm dnat daemon."
+    # diff it.
+    # if diff, remove all the rules
+    # append new ones
+    
+    # flush all the existing rules
+    iptables -t nat -F OUTPUT
+    # append the rules
+    iptables-save -t nat | grep 'A netin' | while read line
+    do
+        out_rule=$(echo $line | sed -r 's/netin--(\S)*/OUTPUT/')
+        bash -c "iptables -t nat $out_rule"
+    done
+done

@@ -1,0 +1,5 @@
+check process all_in_one
+  with pidfile /var/vcap/sys/run/all_in_one/all_in_one.pid
+  start program "/var/vcap/jobs/all_in_one/bin/all_in_one_ctl start" with timeout 30 seconds
+  stop program "/var/vcap/jobs/all_in_one/bin/all_in_one_ctl stop" with timeout 30 seconds
+  group vcap

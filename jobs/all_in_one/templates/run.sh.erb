@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x
+job_dir=/var/vcap/jobs/all_in_one
+run_dir=/var/vcap/sys/run/all_in_one
+pidfile=$run_dir/all_in_one.pid
+$job_dir/bin/dnat_daemon &
+echo $! > $pidfile
+exit 0
