@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -ex
+
+<%# /var/vcap/jobs/mysql/bin/mariadb_ctl start %>
+
+<%# "pre-start execution script: completed pre-start execution" %>
+<%# /var/vcap/sys/log/mysql/pre-start.stdout.log %>
+
+
+<%# wait for the pre-start ends, and run /var/vcap/jobs/mysql/bin/mariadb_ctl start %>
+
+
+<%# another job is to adding/removing OUTPUT routing rules. %>
