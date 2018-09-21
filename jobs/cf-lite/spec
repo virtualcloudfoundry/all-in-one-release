@@ -1,9 +1,9 @@
 ---
-name: all_in_one
+name: cf-lite
 
 templates:
   pre-start.sh.erb: bin/pre-start
-  all_in_one_ctl.sh.erb: bin/all_in_one_ctl
+  cf_lite_ctl.sh.erb: bin/cf_lite_ctl
   run.sh.erb: bin/run
   dnat_daemon.sh.erb: bin/dnat_daemon
 properties:

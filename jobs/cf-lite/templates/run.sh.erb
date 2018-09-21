@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x
+job_dir=/var/vcap/jobs/cf_lite
+run_dir=/var/vcap/sys/run/cf_lite
+pidfile=$run_dir/cf_lite.pid
+$job_dir/bin/dnat_daemon &
+echo $! > $pidfile
+exit 0
