@@ -1,5 +1,5 @@
 ---
-name: cf-lite
+name: cf_lite
 
 templates:
   pre-start.sh.erb: bin/pre-start

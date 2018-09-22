@@ -1,0 +1,41 @@
+#!/bin/bash
+
+job_dir=/var/vcap/jobs/cf_lite
+run_dir=/var/vcap/sys/run/cf_lite
+log_dir=/var/vcap/sys/log/cf_lite
+package_dir=/var/vcap/packages/cf_lite
+pidfile=$run_dir/cf_lite.pid
+
+export PATH=$PWD/bin:$PATH
+
+source /var/vcap/packages/pid_utils/pid_utils.sh
+
+case $1 in
+  start)
+    log "Starting cf_lite..."
+    pid_guard $pidfile "AllInOne"
+
+    mkdir -p $run_dir
+    chown vcap:vcap -R $run_dir
+    mkdir -p $log_dir
+    chown vcap:vcap -R $log_dir
+
+    cd $package_dir
+
+    $job_dir/bin/run >> $log_dir/cf_lite.log 2>&1
+
+    log "Starting cf_lite... done"
+    ;;
+
+  stop)
+    log "Stopping cf_lite..."
+    kill_and_wait $pidfile 20
+    log "Stopping cf_lite... done"
+    rm $pidfile
+    ;;
+
+  *)
+    echo "Usage: cf_lite_ctl {start|stop}"
+    ;;
+
+esac
